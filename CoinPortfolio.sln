@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImport", "TransactionImport\TransactionImport.csproj", "{24E91F71-F80C-4500-91D0-14590CA25504}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImportTest", "TransactionImportTest\TransactionImportTest.csproj", "{BB849381-5FB0-49D9-90E9-E79938A551CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{5369A6F0-C6EC-47FE-8C08-12677B404A91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{24E91F71-F80C-4500-91D0-14590CA25504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E91F71-F80C-4500-91D0-14590CA25504}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E91F71-F80C-4500-91D0-14590CA25504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB849381-5FB0-49D9-90E9-E79938A551CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB849381-5FB0-49D9-90E9-E79938A551CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB849381-5FB0-49D9-90E9-E79938A551CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB849381-5FB0-49D9-90E9-E79938A551CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
