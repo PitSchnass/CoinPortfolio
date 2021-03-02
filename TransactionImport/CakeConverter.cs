@@ -17,6 +17,9 @@ namespace TransactionImport
             
             while (!reader.EndOfStream)
             {
+
+                var line = reader.ReadLine();
+                
                 // -- Skip first line
                 if (firstLine)
                 {
@@ -24,13 +27,12 @@ namespace TransactionImport
                     continue;
                 }
 
-                var line = reader.ReadLine();
                 var values = line.Split(',');
-
+                
                 var transaction = new CoinTransaction();
 
                 transaction.TransactionId = -1;
-                transaction.TransactionDate = DateTime.Parse(values[0]);
+                transaction.TransactionDate = convertDateTimeString(values[0]);
                 
                 transaction.BuyAmount = 0.00000035;
                 transaction.BuyCurrency = Currency.Bitcoin;
@@ -45,6 +47,20 @@ namespace TransactionImport
                 
                 Console.WriteLine(values[0]);
             }
+        }
+
+        private DateTime convertDateTimeString(string dateTime)
+        {
+            dateTime = dateTime.Replace("\"",String.Empty);
+            var realDate = dateTime.Substring(0, 19);
+            var offsetHours = dateTime.Substring(20,2);
+            var offsetMinutes = dateTime.Substring(23, 2);
+
+            var ret = DateTime.Parse(realDate);
+            ret = ret.AddHours(Int32.Parse(offsetHours));
+            ret = ret.AddMinutes(Int32.Parse(offsetMinutes));
+
+            return ret;
         }
     }
 }
