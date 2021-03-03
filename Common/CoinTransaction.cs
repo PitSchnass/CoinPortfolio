@@ -6,6 +6,8 @@ namespace Common
     {
         public int TransactionId { get; set; }
         
+        public int Operation { get; set; }
+        
         public DateTime TransactionDate { get; set; }
         
         public double? BuyAmount { get; set; }

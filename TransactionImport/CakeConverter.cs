@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using Common.StaticClasses;
+using Common.Enums;
 
 namespace TransactionImport
 {
@@ -33,11 +33,12 @@ namespace TransactionImport
 
                 transaction.TransactionId = -1;
                 transaction.TransactionDate = convertDateTimeString(values[0]);
+                transaction.Operation = (int)convertOperation(values[1]);
                 
                 transaction.BuyAmount = 0.00000035;
-                transaction.BuyCurrency = Currency.Bitcoin;
+                transaction.BuyCurrency = Enum.GetName(typeof(Currency), Currency.BTC);
                 transaction.BuyFiatValue = 100000;
-                transaction.BuyFiatCurrency = FiatCurrency.UsDollar;
+                transaction.BuyFiatCurrency = Enum.GetName(typeof(FiatCurrency), FiatCurrency.USD);
                 
                 transactionList.Add(transaction);
                 
@@ -61,6 +62,31 @@ namespace TransactionImport
             ret = ret.AddMinutes(Int32.Parse(offsetMinutes));
 
             return ret;
+        }
+
+        
+        private TransactionOperation convertOperation(string operation)
+        {
+            operation = operation.Replace("\"",String.Empty);
+            
+            switch (operation)
+            {
+                case "Deposit":
+                    return TransactionOperation.Deposit;
+                case "Withdrawal":
+                    return TransactionOperation.Withdrawal;
+                case "Staking reward":
+                    return TransactionOperation.Staking;
+                case "Lapis reward":
+                    return TransactionOperation.Interest;
+                case "Withdrawal Fee":
+                case "Unstake Fee":
+                case "Remove liquidity fee BTC-DFI":
+                    return TransactionOperation.Spend;
+                default:
+                    return TransactionOperation.Invalid;
+                    
+            }
         }
     }
 }
