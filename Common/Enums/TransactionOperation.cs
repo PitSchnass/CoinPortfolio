@@ -9,18 +9,19 @@ namespace Common.Enums
         
         Income = 3,
         Interest = 4,
+        Reward = 5,
         
-        Spend = 5,
-        Stolen = 6,
-        Lost = 7,
+        Spend = 6,
+        Stolen = 7,
+        Lost = 8,
         
-        Airdrop = 8,
-        Staking = 9,
-        Mining = 10,
+        Airdrop = 9,
+        Staking = 10,
+        Mining = 11,
         
-        Deposit = 11,
-        Withdrawal = 12,
+        Deposit = 12,
+        Withdrawal = 13,
         
-        UnknownIgnore = 13
+        UnknownIgnore = 14
     }
 }

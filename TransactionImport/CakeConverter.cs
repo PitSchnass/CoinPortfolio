@@ -8,7 +8,7 @@ namespace TransactionImport
 {
     public class CakeConverter : IConverter
     {
-        public void Convert(FileStream fileStream)
+        public List<CoinTransaction> Convert(FileStream fileStream)
         {
             var reader = new StreamReader(fileStream);
             List<CoinTransaction> transactionList = new List<CoinTransaction>();
@@ -19,6 +19,9 @@ namespace TransactionImport
             {
 
                 var line = reader.ReadLine();
+
+                if (line == null)
+                    break;
                 
                 // -- Skip first line
                 if (firstLine)
@@ -41,13 +44,12 @@ namespace TransactionImport
                 transaction.BuyFiatCurrency = Enum.GetName(typeof(FiatCurrency), FiatCurrency.USD);
                 
                 transactionList.Add(transaction);
-                
-                Console.WriteLine(transaction.TransactionDate);
-                Console.WriteLine(transaction.BuyCurrency);
-                Console.WriteLine(transaction.BuyFiatCurrency);
-                
-                Console.WriteLine(values[0]);
+
+                if (transaction.Operation == (int) TransactionOperation.Invalid)
+                    Console.WriteLine("Invalid operation: " + values[1]);
             }
+            
+            return transactionList;
         }
 
         private DateTime convertDateTimeString(string dateTime)
@@ -79,10 +81,15 @@ namespace TransactionImport
                     return TransactionOperation.Staking;
                 case "Lapis reward":
                     return TransactionOperation.Interest;
-                case "Withdrawal Fee":
-                case "Unstake Fee":
+                case "Referral signup bonus":
+                case "Liquidity mining reward BTC-DFI":
+                    return TransactionOperation.Reward;
+                case "Withdrawal fee":
+                case "Unstake fee":
                 case "Remove liquidity fee BTC-DFI":
                     return TransactionOperation.Spend;
+                case "Remove liquidity BTC-DFI":
+                    return TransactionOperation.UnknownIgnore;
                 default:
                     return TransactionOperation.Invalid;
                     
