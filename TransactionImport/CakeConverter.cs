@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Common;
 using Common.Enums;
@@ -37,11 +38,10 @@ namespace TransactionImport
                 transaction.TransactionId = -1;
                 transaction.TransactionDate = convertDateTimeString(values[0]);
                 transaction.Operation = (int)convertOperation(values[1]);
-                
-                transaction.BuyAmount = 0.00000035;
-                transaction.BuyCurrency = Enum.GetName(typeof(Currency), Currency.BTC);
-                transaction.BuyFiatValue = 100000;
-                transaction.BuyFiatCurrency = Enum.GetName(typeof(FiatCurrency), FiatCurrency.USD);
+                transaction.BuyAmount = convertAmount(values[2]);
+                transaction.BuyCurrency = convertCurrency(values[3]);
+                transaction.BuyFiatValue = convertAmount(values[4]);
+                transaction.BuyFiatCurrency = convertFiatCurrency(values[5]);
                 
                 transactionList.Add(transaction);
 
@@ -77,9 +77,12 @@ namespace TransactionImport
                     return TransactionOperation.Deposit;
                 case "Withdrawal":
                     return TransactionOperation.Withdrawal;
+                case "Bonus/Airdrop":
+                    return TransactionOperation.Airdrop;
                 case "Staking reward":
                     return TransactionOperation.Staking;
                 case "Lapis reward":
+                case "Lapis DFI Bonus":
                     return TransactionOperation.Interest;
                 case "Referral signup bonus":
                 case "Liquidity mining reward BTC-DFI":
@@ -88,11 +91,54 @@ namespace TransactionImport
                 case "Unstake fee":
                 case "Remove liquidity fee BTC-DFI":
                     return TransactionOperation.Spend;
+                case "Add liquidity BTC-DFI":
                 case "Remove liquidity BTC-DFI":
                     return TransactionOperation.UnknownIgnore;
                 default:
                     return TransactionOperation.Invalid;
                     
+            }
+        }
+
+
+        private Decimal convertAmount(string amount)
+        {
+            amount = amount.Replace("\"",String.Empty);
+
+            Decimal amountConverted = Decimal.Parse(amount, CultureInfo.InvariantCulture);
+            return amountConverted;
+
+        }
+        
+        private int convertCurrency(string currency)
+        {
+            currency = currency.Replace("\"",String.Empty);
+
+            switch (currency)
+            {
+                case "BTC":
+                    return (int) Currency.BTC;
+                case "DFI":
+                    return (int) Currency.DFI;
+                case "CRO":
+                    return (int) Currency.CRO;
+                default:
+                    return (int) Currency.Invalid;
+            }
+        }
+        
+        private int convertFiatCurrency(string fiatCurrency)
+        {
+            fiatCurrency = fiatCurrency.Replace("\"",String.Empty);
+
+            switch (fiatCurrency)
+            {
+                case "USD":
+                    return (int) FiatCurrency.USD;
+                case "EUR":
+                    return (int) FiatCurrency.EUR;
+                default:
+                    return (int) FiatCurrency.Invalid;
             }
         }
     }

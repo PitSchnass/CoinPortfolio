@@ -42,5 +42,32 @@ namespace TransactionImportTest
             
             Assert.Pass();
         }
+        
+        [Test]
+        public void CakeConverterTestFull()
+        {
+            CakeConverter converter = new CakeConverter();
+            using (FileStream fs = File.OpenRead(@"C:\Users\henni\Downloads\2021-03-06_12-52-36_Cake.csv"))
+            {
+                var transactions = converter.Convert(fs);
+                
+                Console.WriteLine(transactions.Count + " BTC transactions where converted.");
+                
+                if (transactions.Exists(_ => _.Operation == (int)TransactionOperation.Invalid))
+                    Assert.Fail("Invalid operations exist. Not all Cake operations could be matched"); 
+            }
+
+            using (FileStream fs = File.OpenRead(@"C:\Users\henni\Downloads\2021-03-06_12-53-00_Cake.csv"))
+            {
+                var transactions = converter.Convert(fs);
+                
+                Console.WriteLine(transactions.Count + " DFI transactions where converted.");
+                
+                if (transactions.Exists(_ => _.Operation == (int)TransactionOperation.Invalid))
+                    Assert.Fail("Invalid operations exist. Not all Cake operations could be matched");
+            }
+            
+            Assert.Pass();
+        }
     }
 }
