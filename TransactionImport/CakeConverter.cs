@@ -38,10 +38,13 @@ namespace TransactionImport
                 transaction.TransactionId = -1;
                 transaction.TransactionDate = convertDateTimeString(values[0]);
                 transaction.Operation = (int)convertOperation(values[1]);
-                transaction.BuyAmount = convertAmount(values[2]);
+                transaction.BuyAmount = convertDecimal(values[2]);
                 transaction.BuyCurrency = convertCurrency(values[3]);
-                transaction.BuyFiatValue = convertAmount(values[4]);
+                transaction.BuyFiatValue = convertDecimal(values[4]);
                 transaction.BuyFiatCurrency = convertFiatCurrency(values[5]);
+                transaction.ExternalId = values[8];
+                transaction.Exchange = "Cake";
+                transaction.Comment = values[1];
                 
                 transactionList.Add(transaction);
 
@@ -101,14 +104,22 @@ namespace TransactionImport
         }
 
 
-        private Decimal convertAmount(string amount)
+        private Decimal convertDecimal(string decimalValue)
         {
-            amount = amount.Replace("\"",String.Empty);
+            try
+            {
+                decimalValue = decimalValue.Replace("\"", String.Empty);
 
-            Decimal amountConverted = Decimal.Parse(amount, CultureInfo.InvariantCulture);
-            return amountConverted;
-
+                Decimal decimalConverted = Decimal.Parse(decimalValue, NumberStyles.AllowExponent | NumberStyles.Float, CultureInfo.InvariantCulture);
+                return decimalConverted;
+            }
+            catch
+            {
+                Console.WriteLine(decimalValue + " could not be parsed as decimal.");
+                throw;
+            }
         }
+        
         
         private int convertCurrency(string currency)
         {
