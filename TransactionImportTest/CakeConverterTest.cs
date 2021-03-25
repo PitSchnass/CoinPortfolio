@@ -51,10 +51,21 @@ namespace TransactionImportTest
             {
                 var transactions = converter.Convert(fs);
                 
-                Console.WriteLine(transactions.Count + " BTC transactions where converted.");
+                Console.WriteLine(transactions.Count + " BTC transactions were converted.");
                 
                 if (transactions.Exists(_ => _.Operation == (int)TransactionOperation.Invalid))
-                    Assert.Fail("Invalid operations exist. Not all Cake operations could be matched"); 
+                    Assert.Fail("Invalid operations exist. Not all Cake operations could be matched");
+
+                var dataLayer = new DataLayer.SqlLiteDataLayer();
+                
+                dataLayer.ClearCoinTransactionTable();
+                
+                foreach (var trans in transactions)
+                {
+                    dataLayer.InsertCoinTransaction(trans);
+                }
+                
+                Console.WriteLine(transactions.Count + " BTC transactions were imported.");
             }
 
             using (FileStream fs = File.OpenRead(@"C:\Users\henni\Downloads\2021-03-06_12-53-00_Cake.csv"))
@@ -65,6 +76,13 @@ namespace TransactionImportTest
                 
                 if (transactions.Exists(_ => _.Operation == (int)TransactionOperation.Invalid))
                     Assert.Fail("Invalid operations exist. Not all Cake operations could be matched");
+                
+                var dataLayer = new DataLayer.SqlLiteDataLayer();
+                
+                foreach (var trans in transactions)
+                {
+                    dataLayer.InsertCoinTransaction(trans);
+                }
             }
             
             Assert.Pass();

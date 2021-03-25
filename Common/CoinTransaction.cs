@@ -12,27 +12,27 @@ namespace Common
         
         public decimal? BuyAmount { get; set; }
         
-        public int BuyCurrency { get; set; }
+        public int? BuyCurrency { get; set; }
         
         public decimal? BuyFiatValue { get; set; }
         
-        public int BuyFiatCurrency { get; set; }
+        public int? BuyFiatCurrency { get; set; }
         
         public decimal? SellAmount { get; set; }
         
-        public int SellCurrency { get; set; }
+        public int? SellCurrency { get; set; }
         
         public decimal? SellFiatValue { get; set; }
         
-        public int SellFiatCurrency { get; set; }
+        public int? SellFiatCurrency { get; set; }
         
         public decimal? FeeAmount { get; set; }
         
-        public int FeeCurrency { get; set; }
+        public int? FeeCurrency { get; set; }
         
         public decimal? FeeFiatValue { get; set; }
         
-        public int FeeFiatCurrency { get; set; }
+        public int? FeeFiatCurrency { get; set; }
         
         public string Comment { get; set; }
         

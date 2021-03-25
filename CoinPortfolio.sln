@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImportTest", "Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{5369A6F0-C6EC-47FE-8C08-12677B404A91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{4EFB694C-7849-46D2-AE3E-47B5A922C337}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5369A6F0-C6EC-47FE-8C08-12677B404A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EFB694C-7849-46D2-AE3E-47B5A922C337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EFB694C-7849-46D2-AE3E-47B5A922C337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EFB694C-7849-46D2-AE3E-47B5A922C337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFB694C-7849-46D2-AE3E-47B5A922C337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
